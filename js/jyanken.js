@@ -1,3 +1,5 @@
+const history_array = ["-","-","-","-","-"];
+
 function jyanken_click(jyanken_num) {
     var jyanken_te_player = "";
     switch(jyanken_num){
@@ -13,8 +15,17 @@ function jyanken_click(jyanken_num) {
     }
 
     document.getElementById("jya_player").innerHTML = "あなた：" + jyanken_te_player;
-    document.getElementById("jya_enemy").innerHTML = "あいて：" + jyanken_enemy();
-    document.getElementById("jya_result").innerHTML = jyanken_judge();
+    var jyanken_te_enemy = jyanken_enemy();
+    document.getElementById("jya_enemy").innerHTML = "あいて：" + jyanken_te_enemy;
+    var result = jyanken_judge(jyanken_te_player,jyanken_te_enemy);
+    document.getElementById("jya_result").innerHTML = result;
+    history_array.unshift(result);
+    history_array.pop();
+    document.getElementById("jya_history1").innerHTML = "今　回："+history_array[0];
+    document.getElementById("jya_history2").innerHTML = "１戦前："+history_array[1];
+    document.getElementById("jya_history3").innerHTML = "２戦前："+history_array[2];
+    document.getElementById("jya_history4").innerHTML = "３戦前："+history_array[3];
+    document.getElementById("jya_history5").innerHTML = "４戦前："+history_array[4];
 }
 
 
@@ -43,14 +54,14 @@ function jyanken_judge(player_te,enemy_te){
     var hantei = "";
     if (p_num === e_num) {
         hantei = "あいこです";
-    } else if(p_num === 0 && e_num === 1) {
-        hantei = "あなたの【勝ち】";
+    }else if(p_num === 0 && e_num === 1) {
+        hantei = "【勝ち】";
     }else if(p_num === 1 && e_num === 2) {
-        hantei = "あなたの【勝ち】";
+        hantei = "【勝ち】";
     }else if(p_num === 2 && e_num === 0) {
-        hantei = "あなたの【勝ち】";
+        hantei = "【勝ち】";
     }else {
-        hantei = "あなたの【負け】";
+        hantei = "【負け】";
     }
     return hantei;
 }
@@ -82,6 +93,8 @@ const hoge = () => {
     pic.src = img[count];
     setTimeout(() => { hoge(); }, 200);
 }
+
+
 
 window.onload = () => {
     hoge();
